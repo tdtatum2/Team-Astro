@@ -1,0 +1,27 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #63656A;
+}
+
+nav {
+    background-color: #000;
+}
+
+.logo {
+    width: 10%;
+    height: auto;
+}
+
+.navbar-brand {
+    pointer-events: none;
+}
+
+nav a, #navbarContent a {
+    color: #FDB913;
+}

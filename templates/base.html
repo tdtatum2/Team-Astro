@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Editable Title -->
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+
+<body>
+
+    <!-- Header Section (Navigation) -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">
+                    <img src="{{ url_for('static', filename='imgs/moonlogo.gif') }}" alt="Spinning Moon" class="d-inline-block me-2 logo">
+                    FHSU Astronomy Club
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle Navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item me-5">
+                            <a href="#" class="nav-link active" aria-current="page">Home</a>
+                        </li>
+                        <li class="nav-item me-5">
+                            <a href="#" class="nav-link">Events</a>
+                        </li>
+                        <li class="nav-item me-5">
+                            <a href="#" class="nav-link">TigerLink</a>
+                        </li>
+                        <li class="nav-item me-5">
+                            <a href="#" class="nav-link">Contact Us</a>
+                        </li>
+                    </ul>
+                    <!-- FLASK If Session NOT LOGGED IN -->
+                    <a href="#" class="navbar-brand">
+                        <button type="button" class="btn btn-outline-warning">Admin Login</button>
+                    </a>
+                    <!-- FLASK If Session LOGGED IN -->
+                    <a href="#" class="navbar-brand">
+                        <button type="button" class="btn btn-outline-warning">Admin Panel</button>
+                    </a>
+                    <a href="#" class="navbar-brand">
+                        <button type="button" class="btn btn-outline-danger">Logout</button>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Section (Page Content) -->
+    <main>
+
+    </main>
+
+
+    <!-- Bootstrap JS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+
+    <!-- Custom JS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/main.js') }}">
+
+</body>
+
+
+<!-- Footer -->
+<footer>
+
+</footer>
+
+
+</html>
