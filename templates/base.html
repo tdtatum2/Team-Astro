@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item me-5">
-                            <a href="#" class="nav-link active text-white" aria-current="page">Home</a>
+                            <a href="#" class="nav-link active" aria-current="page">Home</a>
                         </li>
                         <li class="nav-item me-5">
                             <a href="#" class="nav-link">Events</a>
@@ -49,16 +49,16 @@
                         </li>
                     </ul>
                     <!-- FLASK If Session NOT LOGGED IN -->
-                    <!-- <a href="#" class="navbar-brand">
+                    <a href="#" class="navbar-brand">
                         <button type="button" class="btn btn-outline-warning">Admin Login</button>
-                    </a> -->
+                    </a>
                     <!-- FLASK If Session LOGGED IN -->
-                    <!-- <a href="#" class="navbar-brand">
+                    <a href="#" class="navbar-brand">
                         <button type="button" class="btn btn-outline-warning">Admin Panel</button>
-                    </a> -->
-                    <!-- <a href="#" class="navbar-brand">
+                    </a>
+                    <a href="#" class="navbar-brand">
                         <button type="button" class="btn btn-outline-danger">Logout</button>
-                    </a> -->
+                    </a>
                 </div>
             </div>
         </nav>
@@ -73,13 +73,13 @@
 
 
     <!-- JQuery  -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 
     <!-- Bootstrap JS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Custom JS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/main.js') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
 
