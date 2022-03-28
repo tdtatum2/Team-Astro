@@ -1,0 +1,60 @@
+<!-- Include Base Template -->
+{% extends 'base.html' %}
+
+<!-- Title Block -->
+{% block title %}
+FHSU Astronomy Club | Officer Manager
+{% endblock %}
+
+<!-- Main Content -->
+{% block content %}
+<div class="container-fluid">
+    <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center text-white">
+        <div class="row mb-5">
+            <h2>Officer Manager</h2>
+        </div>
+        <div class="table-responsive mb-5">
+            <table class="table table-dark">
+                <thead>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Confirm Password</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </thead>
+                <tbody>
+                    <!-- For Officer in Officers Table -->
+                    <!-- Form with each value as default -->
+                    <!-- Submit Button and Delete Button -->
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        {% from "_formhelpers.html" import render_field %}
+        <div class="row mb-4">
+            <h3>Add Officer</h3>
+        </div>
+        <form method="post">
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-group">
+                        {{ render_field(form.username, class_="form-control") }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{ render_field(form.password, class_="form-control") }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{ render_field(form.confirm, class_="form-control") }}
+                    </div>
+                </div>
+            </div>
+            <input class="btn btn-lg btn-warning mt-2" type="submit" value="Submit"></button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
