@@ -1,0 +1,52 @@
+<!-- Includes Base Template -->
+{% extends 'base.html' %}
+
+<!-- Title -->
+{% block title %}
+FHSU Astronomy Club | Admin Panel
+{% endblock %}
+
+
+<!-- Main Content -->
+{% block content %}
+    <div class="container-fluid">
+        <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center">
+            <div class="row">
+                <div>
+                    <h2 class="text-white">Admin Panel</h2>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-5">
+                <!-- Mobile Display (Larger Buttons) -->
+                <div class="d-grid d-md-none gap-2 w-100">
+                    <a class="btn btn-lg btn-warning" href="{{ url_for('event_manager') }}">
+                        Event Manager
+                    </a>
+                    <a  class="btn btn-lg btn-warning"href="{{ url_for('gallery_manager') }}">
+                        Gallery Manager
+                    </a>
+                    <a  class="btn btn-lg btn-warning"href="{{ url_for('officer_manager') }}">
+                        Officer Manager
+                    </a>
+                </div>
+                <!-- Medium+ Display (Smaller Buttons) -->
+                <div class="d-md-grid d-none gap-4 w-25">
+                    <a class="btn btn-lg btn-warning" href="{{ url_for('event_manager') }}">
+                        Event Manager
+                    </a>
+                    <a class="btn btn-lg btn-warning" href="{{ url_for('gallery_manager') }}">
+                        Gallery Manager
+                    </a>
+                    <a class="btn btn-lg btn-warning" href="{{ url_for('officer_manager') }}">
+                        Officer Manager
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

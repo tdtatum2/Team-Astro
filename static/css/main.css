@@ -6,11 +6,10 @@
 }
 
 body {
-    background-color: #63656A;
-}
-
-nav {
-    background-color: #000;
+    background-image: url('../imgs/space.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
 .logo {
@@ -18,10 +17,10 @@ nav {
     height: auto;
 }
 
-.navbar-brand {
-    pointer-events: none;
-}
-
 nav a, #navbarContent a {
     color: #FDB913;
+}
+
+.showcase {
+    margin-bottom: 4em;
 }
