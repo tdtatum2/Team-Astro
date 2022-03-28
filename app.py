@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, flash
 import sqlite3
 import os
 from wtforms import TextAreaField, StringField, validators, PasswordField, Form, SubmitField, HiddenField, SelectField
