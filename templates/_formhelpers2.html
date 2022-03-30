@@ -1,6 +1,5 @@
-<!-- Form Fields with Labels (for adding) -->
-{% macro render_field(field) %}
-    {{field.label}}
+<!-- Form Fields without Labels (for edit pages) -->
+{% macro render_field2(field) %}
     {{field(**kwargs)|safe}}
     {% if field.errors %}
         {% for error in field.errors %}

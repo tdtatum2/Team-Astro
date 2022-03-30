@@ -22,8 +22,9 @@
 
 <body>
 
-    <!-- Header Section (Navigation) -->
+    <!-- Header Section -->
     <header>
+        <!-- Navigation -->
         <nav class="navbar navbar-dark navbar-expand-md bg-dark bg-gradient">
             <div class="container-fluid">
                 <a href="{{ url_for('index') }}" class="navbar-brand">
@@ -48,21 +49,30 @@
                             <a href="#" class="nav-link">Contact Us</a>
                         </li>
                     </ul>
-                    <!-- FLASK If Session NOT LOGGED IN -->
-                    <a href="#" class="navbar-brand">
-                        <button type="button" class="btn btn-outline-warning">Admin Login</button>
-                    </a>
-                    <!-- FLASK If Session LOGGED IN -->
-                    <a href="{{ url_for('admin') }}" class="navbar-brand">
-                        <button type="button" class="btn btn-outline-warning">Admin Panel</button>
-                    </a>
-                    <a href="#" class="navbar-brand">
-                        <button type="button" class="btn btn-outline-danger">Logout</button>
-                    </a>
+                    <!-- Display Admin Panel Link and Logout Button if Logged In -->
+                    {% if session['loggedIn'] %}
+                        <a href="{{ url_for('admin') }}" class="navbar-brand">
+                            <button type="button" class="btn btn-outline-warning">Admin Panel</button>
+                        </a>
+                        <a href="#" class="navbar-brand">
+                            <button type="button" class="btn btn-outline-danger">Logout</button>
+                        </a>
+                    <!-- Otherwise show Log In Button -->
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="navbar-brand">
+                            <button type="button" class="btn btn-outline-warning">Admin Login</button>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
         <br>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
     </header>
 
     <!-- Main Section (Page Content) -->

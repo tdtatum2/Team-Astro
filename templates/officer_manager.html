@@ -26,6 +26,9 @@ FHSU Astronomy Club | Officer Manager
                     <!-- For Officer in Officers Table -->
                     <!-- Form with each value as default -->
                     <!-- Submit Button and Delete Button -->
+                    {% for officer in officers %}
+                        <form action=""></form>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -38,21 +41,21 @@ FHSU Astronomy Club | Officer Manager
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.username, class_="form-control") }}
+                        {{ render_field(add.username, class_="form-control") }}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.password, class_="form-control") }}
+                        {{ render_field(add.password, class_="form-control") }}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.confirm, class_="form-control") }}
+                        {{ render_field(add.confirm, class_="form-control") }}
                     </div>
                 </div>
             </div>
-            <input class="btn btn-lg btn-warning mt-2" type="submit" value="Submit"></button>
+            <input class="btn btn-lg btn-warning mt-2" type="submit" value="Submit">
         </form>
     </div>
 </div>
