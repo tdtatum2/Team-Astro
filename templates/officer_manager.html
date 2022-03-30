@@ -14,10 +14,11 @@ FHSU Astronomy Club | Officer Manager
             <h2>Officer Manager</h2>
         </div>
         <div class="table-responsive mb-5">
+            {% from "_formhelpers2.html" import render_field2 %}
             <table class="table table-dark">
                 <thead>
                     <th scope="col">Username</th>
-                    <th scope="col">Password</th>
+                    <th scope="col">New Password</th>
                     <th scope="col">Confirm Password</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -27,7 +28,36 @@ FHSU Astronomy Club | Officer Manager
                     <!-- Form with each value as default -->
                     <!-- Submit Button and Delete Button -->
                     {% for officer in officers %}
-                        <form action=""></form>
+                        <form method="post">
+                            {{ render_field2(edit.id, class_="form-control", value=officer[0]) }}
+                            <tr class="mt-2">
+                                <td>
+                                    <div class="form-group">
+                                        {{ render_field2(edit.username, class_="form-control", value=officer[1]) }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ render_field2(edit.password, class_="form-control") }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ render_field2(edit.confirm, class_="form-control") }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ render_field2(edit.update_user, class_="form-control btn btn-sm btn-warning") }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ render_field2(edit.remove_user, class_="form-control btn btn-sm btn-danger") }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </form>
                     {% endfor %}
                 </tbody>
             </table>

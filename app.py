@@ -61,7 +61,7 @@ class AddOfficer(Form):
     confirm = PasswordField('Confirm Password')
 
 class EditOfficer(Form):
-    id = HiddenField()
+    id = HiddenField("ID")
     username = StringField('Username', [validators.Length(min=1, max=30)])
     password = PasswordField('Password', [
             validators.DataRequired(),
@@ -74,13 +74,14 @@ class EditOfficer(Form):
 @app.route("/officer_manager", methods=['GET', 'POST'])
 def officer_manager():
     add = AddOfficer(request.form)
+    edit = EditOfficer(request.form)
     conn = get_db_connection()
     officers = conn.execute("SELECT * FROM officers").fetchall()
     conn.close()
     if request.method == 'POST' and add.data:
         flash('The add button was clicked', 'success')
-        return render_template('officer_manager.html', officers=officers, add=add)
-    return render_template('officer_manager.html', officers=officers, add=add)
+        return render_template('officer_manager.html', officers=officers, add=add, edit=edit)
+    return render_template('officer_manager.html', officers=officers, add=add, edit=edit)
 
 class Login(Form):
     username = StringField('Username', [validators.Length(min=1, max=30)])
