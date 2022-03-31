@@ -38,21 +38,23 @@ FHSU Astronomy Club | Gallery Manager
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.image, class_="form-control") }}
+                        {{ render_field(add_image.image, class_="form-control") }}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.title, class_="form-control") }}
+                        {{ render_field(add_image.title, class_="form-control") }}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.description, class_="form-control") }}
+                        {{ render_field(add_image.description, class_="form-control") }}
                     </div>
                 </div>
             </div>
-            <input class="btn btn-lg btn-warning mt-2" type="submit" value="Submit"></button>
+            <div class="col-4 offset-4">
+                {{ render_field(add_image.add_image, class_="form-control btn btn-lg btn-warning mt-2")}}
+            </div>
         </form>
     </div>
 </div>

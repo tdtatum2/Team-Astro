@@ -9,7 +9,7 @@ FHSU Astronomy Club | Officer Manager
 <!-- Main Content -->
 {% block content %}
 <div class="container-fluid">
-    <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center text-white">
+    <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center text-white mb-5">
         <div class="row mb-5">
             <h2>Officer Manager</h2>
         </div>
@@ -38,12 +38,12 @@ FHSU Astronomy Club | Officer Manager
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        {{ render_field2(edit.password, class_="form-control") }}
+                                        {{ render_field2(edit.password, class_="form-control", value=officer[2]) }}
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        {{ render_field2(edit.confirm, class_="form-control") }}
+                                        {{ render_field2(edit.confirm, class_="form-control", value=officer[2]) }}
                                     </div>
                                 </td>
                                 <td>
@@ -51,9 +51,12 @@ FHSU Astronomy Club | Officer Manager
                                         {{ render_field2(edit.update_user, class_="form-control btn btn-sm btn-warning") }}
                                     </div>
                                 </td>
+                        </form>
+                        <form method="post">
+                                {{ render_field2(remove.id, class="_form-control", value = officer[0])}}
                                 <td>
                                     <div class="form-group">
-                                        {{ render_field2(edit.remove_user, class_="form-control btn btn-sm btn-danger") }}
+                                        {{ render_field2(remove.remove_user, class_="form-control btn btn-sm btn-danger") }}
                                     </div>
                                 </td>
                             </tr>
@@ -85,7 +88,13 @@ FHSU Astronomy Club | Officer Manager
                     </div>
                 </div>
             </div>
-            <input class="btn btn-lg btn-warning mt-2" type="submit" value="Submit">
+            <div class="row mb-4">
+                <div class="col-4 offset-4">
+                    <div class="form-group">
+                        {{ render_field2(add.add_member, class_="form-control btn btn-warning") }}
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
