@@ -27,6 +27,12 @@ def index():
 
 @app.route("/admin")
 def admin():
+    try:
+        if(session['loggedIn'] == False):
+            return redirect(url_for('login'))
+    except:
+        session['loggedIn'] = False
+        return redirect(url_for('login'))
     return render_template('admin.html')
 
 class AddEvent(Form):
@@ -98,12 +104,12 @@ def officer_manager():
     conn = get_db_connection()
     officers = conn.execute("SELECT * FROM officers").fetchall()
     conn.close()
-    # try:
-    #     if(session['loggedIn'] == False):
-    #         return redirect(url_for('login'))
-    # except:
-    #     session['loggedIn'] = False
-    #     return redirect(url_for('login'))
+    try:
+        if(session['loggedIn'] == False):
+            return redirect(url_for('login'))
+    except:
+        session['loggedIn'] = False
+        return redirect(url_for('login'))
     try:
         if request.method == 'POST' and add.add_member.data and add.validate():
             try:
@@ -163,16 +169,15 @@ def login():
             flash('You are already logged in!', 'warning')
             return redirect(url_for('index'))
         else:
-            print("Else")
             if request.method == 'POST' and form.validate():
                 try:
                     username = form.username.data
                     check_password = form.password.data
                     conn = get_db_connection()
-                    officer = conn.execute('SELECT * FROM officers WHERE username = ?', (username,)).fetchone()
-                    dbPassword = officer[2]
+                    officer = conn.execute("SELECT * FROM officers WHERE username = '" + username + "'").fetchone()
+                    dbPassword = officer[2]                    
                     conn.close()
-                    if bcrypt.checkpw(check_password.encode('utf-8'), dbPassword.encode('utf-8')):
+                    if bcrypt.checkpw(check_password.encode('utf-8'), dbPassword):
                         session['loggedIn'] = True
                         flash('Login successful', 'success')
                         return redirect(url_for('admin'))
@@ -187,13 +192,12 @@ def login():
         if request.method == 'POST' and form.validate():
                 try:
                     username = form.username.data
-                    password = form.password.data
+                    check_password = form.password.data
                     conn = get_db_connection()
-                    user = conn.execute('SELECT * FROM users WHERE username = ?',
-                                            (username,)).fetchone()
-                    dbPassword = user['password']
+                    officer = conn.execute("SELECT * FROM officers WHERE username = '" + username + "'").fetchone()
+                    dbPassword = officer[2]
                     conn.close()
-                    if bcrypt.checkpw(password.encode('utf-8'), dbPassword):
+                    if bcrypt.checkpw(check_password.encode('utf-8'), dbPassword):
                         session['loggedIn'] = True
                         flash('Login successful', 'success')
                         return redirect(url_for('admin'))
@@ -205,5 +209,17 @@ def login():
                     return render_template('login.html', form=form)
         return render_template('login.html', form=form)
 
+
+@app.route('/logout')
+def logout():
+    try:
+        if(session['loggedIn'] == False):
+            return redirect(url_for('login'))
+    except:
+        session['loggedIn'] == False
+        return redirect(url_for('login'))
+    session.clear()
+    flash('You have been logged out!', 'success')
+    return redirect(url_for('login'))
 
 app.run(debug=True)
