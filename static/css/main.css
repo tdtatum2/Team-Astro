@@ -17,7 +17,7 @@ body {
     height: auto;
 }
 
-nav a, #navbarContent a {
+nav a, #navbarContent a, .text-gold {
     color: #FDB913;
 }
 

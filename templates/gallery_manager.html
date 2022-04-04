@@ -13,6 +13,7 @@ FHSU Astronomy Club | Gallery Manager
         <div class="row mb-5">
             <h2>Gallery Manager</h2>
         </div>
+        {% from "_formhelpers2.html" import render_field2 %}
         <div class="table-responsive mb-5">
             <table class="table table-dark">
                 <thead>
@@ -26,35 +27,58 @@ FHSU Astronomy Club | Gallery Manager
                     <!-- For Image in Images Table -->
                     <!-- Form with each value as default -->
                     <!-- Submit Button and Delete Button -->
+                    {% for image in images %}
+                    <form method="post">
+                        {{ render_field2(edit_image.id, class_="form-control", value=image[0]) }}
+                        <tr>
+                            <td>
+                                <img src={{ image[2] }} alt="Gallery Image" width="100" height="100">
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {% if image[3] %}
+                                        {{ render_field2(edit_image.title, class_="form-control", value=image[3]) }}
+                                    {% else %}
+                                        {{ render_field2(edit_image.title, class_="form-control", placeholder="Image Title") }}
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {% if image[4] %}
+                                        {{ render_field2(edit_image.description, class_="form-control", value=image[4]) }}
+                                    {% else %}
+                                        {{ render_field2(edit_image.description, class_="form-control", placeholder= "Image Description") }}
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(edit_image.update_image, class_="form-control btn-warning") }}
+                                </div>
+                            </td>
+                    </form>
+                    <form method="post">
+                        {{ render_field2(remove_image.id, class_="form-control", value=image[0]) }}
+                        {{ render_field2(remove_image.filename, class_="form-control", value=image[1]) }}
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(remove_image.remove_image, class_="form-control btn-danger") }}
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
         <hr>
-        {% from "_formhelpers.html" import render_field %}
         <div class="row mb-4">
             <h3>Add Image</h3>
         </div>
-        <form method="post">
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field(add_image.image, class_="form-control") }}
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field(add_image.title, class_="form-control") }}
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field(add_image.description, class_="form-control") }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-4 offset-4">
-                {{ render_field(add_image.add_image, class_="form-control btn btn-lg btn-warning mt-2")}}
-            </div>
+        <form action="{{url_for('uploader')}}" method="post" class="text-center" enctype="multipart/form-data">
+            <input type="file" name="file" class="mt-2"/>
+            <input type="submit" class="btn btn-lb btn-warning mt-2"/>
         </form>
     </div>
 </div>

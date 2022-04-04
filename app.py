@@ -1,11 +1,12 @@
 from tokenize import String
+from click import edit
 from flask import Flask, render_template, session, request, flash, redirect, url_for
 import sqlite3
 import os
 from os.path import join, dirname, abspath
-from wtforms import StringField, validators, PasswordField, Form, SubmitField, HiddenField, FileField
-from flask_wtf.file import FileRequired, FileAllowed
+from wtforms import StringField, validators, PasswordField, Form, SubmitField, HiddenField, SelectField
 import bcrypt
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Sg4&gLK**23S'
@@ -48,15 +49,21 @@ def event_manager():
     return render_template('event_manager.html', form=form)
 
 
-class AddImage(Form):
-    image = FileField('Image File', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'gif'], 'Images only!')])
-    title = StringField('Image Title', [validators.Length(min=1, max=30)])
-    description = StringField('Image Description', [validators.Length(min=1, max=75)])
-    add_image = SubmitField()
+class EditImage(Form):
+    id = HiddenField()
+    title = StringField('Image Title')
+    description = StringField('Image Description')
+    update_image = SubmitField()
+
+class RemoveImage(Form):
+    id = HiddenField()
+    filename = HiddenField()
+    remove_image = SubmitField()
 
 @app.route("/gallery_manager", methods=['GET', 'POST'])
 def gallery_manager():
-    add_image = AddImage(request.form)
+    edit_image = EditImage(request.form)
+    remove_image = RemoveImage(request.form)
     conn = get_db_connection()
     images = conn.execute("SELECT * FROM images").fetchall()
     conn.close()
@@ -67,11 +74,95 @@ def gallery_manager():
         session['loggedIn'] = False
         return redirect(url_for('login'))
     try:
-        pass
+        if request.method == 'POST':
+            if edit_image.update_image.data:
+                id = edit_image.id.data
+                conn = get_db_connection()
+                if edit_image.title.data:
+                    title = edit_image.title.data
+                    if edit_image.description.data:
+                        try:
+                            desc = edit_image.description.data
+                            conn.execute('UPDATE images SET title = ?, description = ? WHERE id = ?', (title, desc, id))
+                            conn.commit()
+                            conn.close()
+                            flash('Image Updated: Title and Description Changed.', 'success')
+                            return(redirect(url_for('gallery_manager')))
+                        except:
+                            flash('Image Update Failed! Please try again.', 'danger')
+                            return(redirect(url_for('gallery_manager')))
+                    else:
+                        try:
+                            conn.execute('UPDATE images SET title = ? WHERE id = ?', (title, id))
+                            conn.commit()
+                            conn.close()
+                            flash('Image Updated: Title Changed.', 'success')
+                            return(redirect(url_for('gallery_manager')))
+                        except:
+                            flash('Image Update Failed! Please try again.', 'danger')
+                            return(redirect(url_for('gallery_manager')))
+                elif edit_image.description.data:
+                    desc = edit_image.description.data
+                    try:
+                        conn.execute('UPDATE images SET description = ? WHERE id = ?', (desc, id))
+                        conn.commit()
+                        conn.close()
+                        flash('Image Updated: Description Changed.', 'success')
+                        return(redirect(url_for('gallery_manager')))
+                    except:
+                        flash('Image Update Failed! Please try again.', 'danger')
+                        return(redirect(url_for('gallery_manager')))
+            elif remove_image.remove_image.data:
+                id = remove_image.id.data
+                file_name = remove_image.filename.data
+                try:
+                    conn = get_db_connection()
+                    conn.execute('DELETE FROM images WHERE id = ?', (id))
+                    conn.commit()
+                    conn.close()
+                    os.remove(os.path.join(UPLOADS_PATH + '/', file_name))
+                    flash('Image removed successfully.', 'success')
+                    return(redirect(url_for('gallery_manager')))
+                except:
+                    flash('Image could not be removed. Please try again.', 'danger')
+                    return(redirect(url_for('gallery_manager')))
     except:
-        pass
-    return render_template('gallery_manager.html', images=images, add_image=add_image)
+        return render_template('gallery_manager.html', images=images, edit_image=edit_image, remove_image=remove_image)
+    return render_template('gallery_manager.html', images=images, edit_image=edit_image, remove_image=remove_image)
 
+@app.route("/uploader", methods=['GET','POST'])
+def uploader():
+    try:
+        if(session['loggedIn'] == False):
+            return redirect(url_for('login'))
+    except:
+        session['loggedIn'] = False
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        file = request.files['file']
+        file_name = secure_filename(file.filename)
+        os.makedirs(os.path.dirname(UPLOADS_PATH + '/' + file_name), exist_ok=True)
+        exists = os.path.exists(os.path.join(UPLOADS_PATH + '/', file_name))
+        if not exists:
+            file.save(os.path.join(UPLOADS_PATH + '/', file_name))
+            flash('File uploaded successfully!', 'success')
+            conn = get_db_connection()
+            conn.execute('INSERT INTO images (path, file_name) VALUES (?, ?)', (os.path.join('static/uploads' + '/', file_name), file_name))
+            conn.commit()
+            conn.close()
+        else:
+            conn = get_db_connection()
+            image = conn.execute('SELECT * FROM images WHERE file_name = ' + "'" + file_name + "'").fetchone()
+            conn.close()
+            if not image:
+                conn = get_db_connection()
+                conn.execute('INSERT INTO images (path, file_name) VALUES (?, ?)', (os.path.join('static/uploads' + '/', file_name), file_name))
+                conn.commit()
+                conn.close()
+                flash('File already exists! Refreshing database.', 'warning')
+            else:
+                flash('File already exists!', 'danger')
+        return redirect(url_for('gallery_manager'))
 
 class AddOfficer(Form):
     username = StringField('Username', [validators.Length(min=1, max=30)])
