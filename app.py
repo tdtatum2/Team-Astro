@@ -1,10 +1,9 @@
-from tokenize import String
-from click import edit
+from datetime import datetime
 from flask import Flask, render_template, session, request, flash, redirect, url_for
 import sqlite3
 import os
 from os.path import join, dirname, abspath
-from wtforms import StringField, validators, PasswordField, Form, SubmitField, HiddenField, SelectField
+from wtforms import StringField, validators, PasswordField, Form, SubmitField, HiddenField, SelectField, TimeField, DateField
 import bcrypt
 from werkzeug.utils import secure_filename
 
@@ -20,6 +19,10 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+@app.template_filter()
+def format_time(value):
+    new_time = datetime.strptime(value, '%H:%M:%S').time()
+    return new_time
 
 @app.route("/")
 def index():
@@ -39,14 +42,99 @@ def admin():
 class AddEvent(Form):
     event = StringField('Event Name', [validators.Length(min=1, max=30)])
     location = StringField('Event Location', [validators.Length(min=1, max=30)])
-    time = StringField('Event Time', [validators.Length(min=1, max=30)])
-    description = StringField('Event Description', [validators.Length(min=1, max=75)])
+    date = DateField('Event Date')
+    time = TimeField('Event Time', format='%H:%M:%S')
+    description = StringField('Event Description', [validators.Length(min=0, max=75)])
+    weather = SelectField('Event Weather', choices=[('question-circle', 'TBD'), ('sun', 'Clear Day'), ('stars', 'Clear Night'), ('cloud-moon', 'Cloudy Night'), ('cloud-sun', 'Cloudy Day'), ('cloud-rain', 'Rainy'), ('wind', 'Windy'), ('cloud-snow', 'Snowy'), ('x-circle', 'Canceled')])
+    add_event = SubmitField()
 
+class EditEvent(Form):
+    id = HiddenField()
+    event = StringField('Event Name', [validators.Length(min=1, max=30)])
+    location = StringField('Event Location', [validators.Length(min=1, max=30)])
+    date = DateField('Event Date')
+    time = TimeField('Event Time', format='%H:%M:%S')
+    description = StringField('Event Description', [validators.Length(min=0, max=75)])
+    weather = SelectField('Event Weather', choices=[('question-circle', 'TBD'), ('sun', 'Clear Day'), ('stars', 'Clear Night'), ('cloud-moon', 'Cloudy Night'), ('cloud-sun', 'Cloudy Day'), ('cloud-rain', 'Rainy'), ('wind', 'Windy'), ('cloud-snow', 'Snowy'), ('x-circle', 'Canceled')])
+    edit_event = SubmitField()
+
+class RemoveEvent(Form):
+    id = HiddenField()
+    remove_event = SubmitField()
 
 @app.route("/event_manager", methods=['GET', 'POST'])
 def event_manager():
-    form = AddEvent(request.form)
-    return render_template('event_manager.html', form=form)
+    add_event = AddEvent(request.form)
+    edit_event = EditEvent(request.form)
+    remove_event = RemoveEvent(request.form)
+    conn = get_db_connection()
+    events = conn.execute("SELECT * FROM events").fetchall()
+    conn.close()
+    try:
+        if(session['loggedIn'] == False):
+            return redirect(url_for('login'))
+    except:
+        session['loggedIn'] = False
+        return redirect(url_for('login'))
+    try:
+        if request.method == 'POST':
+            if add_event.add_event.data and add_event.validate():
+                try:
+                    event = add_event.event.data
+                    location = add_event.location.data
+                    raw_date = add_event.date.data
+                    date = str(raw_date)
+                    raw_time = add_event.time.data
+                    time = str(raw_time)
+                    description = add_event.description.data
+                    weather = add_event.weather.data
+                    conn = get_db_connection()
+                    conn.execute("INSERT INTO events(event, location, date, time, description, weather) VALUES(?, ?, ?, ?, ?, ?)", (event, location, date, time, description, weather))
+                    conn.commit()
+                    events = conn.execute("SELECT * FROM events").fetchall()
+                    conn.close()
+                    flash('Event successfully added!', 'success')
+                    return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+                except:
+                    flash('Event add failed. Please try again.', 'danger')
+                    return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+            elif edit_event.edit_event.data and edit_event.validate():
+                try:
+                    id = edit_event.id.data
+                    event = edit_event.event.data
+                    location = edit_event.location.data
+                    raw_date = edit_event.date.data
+                    date = str(raw_date)
+                    raw_time = edit_event.time.data
+                    time = str(raw_time)
+                    description = edit_event.description.data
+                    weather = edit_event.weather.data
+                    conn = get_db_connection()
+                    conn.execute("UPDATE events SET event = ?, location = ?, date = ?, time = ?, description = ?, weather = ? WHERE id = ?", (event, location, date, time, description, weather, id))
+                    conn.commit()
+                    events = conn.execute("SELECT * FROM events").fetchall()
+                    conn.close()
+                    flash('Event successfully edited!', 'success')
+                    return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+                except:
+                    flash('Event edit failed. Please try again.', 'danger')
+                    return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+            elif remove_event.remove_event.data:
+                try:
+                    id = remove_event.id.data
+                    conn = get_db_connection()
+                    conn.execute("DELETE FROM events WHERE id = ?", (id))
+                    conn.commit()
+                    events = conn.execute("SELECT * FROM events").fetchall()
+                    conn.close()
+                    flash('Event successfully removed!', 'success')
+                    return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+                except:
+                    flash('Event removal failed. Please try again.', 'danger')
+                    return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+    except:
+        return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+    return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
 
 
 class EditImage(Form):

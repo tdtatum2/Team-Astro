@@ -13,13 +13,17 @@ FHSU Astronomy Club | Event Manager
         <div class="row mb-5">
             <h2>Event Manager</h2>
         </div>
+        {% from "_formhelpers.html" import render_field %}
+        {% from "_formhelpers2.html" import render_field2 %}
         <div class="table-responsive mb-5">
             <table class="table table-dark">
                 <thead>
                     <th scope="col">Event Name</th>
                     <th scope="col">Event Location</th>
+                    <th scope="col">Event Description</th>
                     <th scope="col">Event Date</th>
                     <th scope="col">Event Time</th>
+                    <th scope="col">Event Weather</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </thead>
@@ -27,11 +31,62 @@ FHSU Astronomy Club | Event Manager
                     <!-- For Event in Events Table -->
                     <!-- Form with each value as default -->
                     <!-- Submit Button and Delete Button -->
+                    {% for event in events %}
+                    <form method="post">
+                        {{ render_field2(edit_event.id, class_="form-control", value=event[0]) }}
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(edit_event.event, class_="form-control", value=event[1]) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(edit_event.location, class_="form-control", value=event[2]) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(edit_event.description, class_="form-control", value=event[5])}}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(edit_event.date, class_="form-control", value=event[3]) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(edit_event.time, class_="form-control", value=event[4]) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {% set z = edit_event.weather.process_data(event[6]) %}
+                                    {{ render_field2(edit_event.weather, class_="form-control") }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(edit_event.edit_event, class_="form-control btn btn-warning") }}
+                                </div>
+                            </td>
+                        </form>
+                        <form method="post">
+                            {{ render_field2(remove_event.id, class_="form-control", value=event[0]) }}
+                            <td>
+                                <div class="form-group">
+                                    {{ render_field2(remove_event.remove_event, class_="form-control btn btn-danger") }}
+                                </div>
+                            </td>
+                        </form>
+                        </tr>
+                    
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
         <hr>
-        {% from "_formhelpers.html" import render_field %}
         <div class="row mb-4">
             <h3>Add Event</h3>
         </div>
@@ -39,28 +94,44 @@ FHSU Astronomy Club | Event Manager
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.event, class_="form-control") }}
+                        {{ render_field(add_event.event, class_="form-control") }}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.location, class_="form-control") }}
+                        {{ render_field(add_event.location, class_="form-control") }}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        {{ render_field(form.time, class_="form-control") }}
+                        {{ render_field(add_event.date, class_="form-control") }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{ render_field(add_event.time, class_="form-control") }}
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col-9">
                     <div class="form-group">
-                        {{ render_field(form.description, class_="form-control") }}
+                        {{ render_field(add_event.description, class_="form-control") }}
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        {{ render_field(add_event.weather, class_="form-control") }}
                     </div>
                 </div>
             </div>
-            <input class="btn btn-lg btn-warning mt-2" type="submit" value="Submit"></button>
+            <div class="row">
+                <div class="col-2 offset-5">
+                    <div class="form-group">
+                        {{ render_field2(add_event.add_event, class_="form-control btn btn-lg btn-warning mt-2")}}
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
