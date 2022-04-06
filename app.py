@@ -123,7 +123,7 @@ def event_manager():
                 try:
                     id = remove_event.id.data
                     conn = get_db_connection()
-                    conn.execute("DELETE FROM events WHERE id = ?", (id))
+                    conn.execute("DELETE FROM events WHERE id = ?", (id,))
                     conn.commit()
                     events = conn.execute("SELECT * FROM events").fetchall()
                     conn.close()
@@ -204,10 +204,12 @@ def gallery_manager():
                 id = remove_image.id.data
                 file_name = remove_image.filename.data
                 try:
+                    print(id)
                     conn = get_db_connection()
-                    conn.execute('DELETE FROM images WHERE id = ?', (id))
+                    conn.execute('DELETE FROM images WHERE id = ?', (id,))
                     conn.commit()
                     conn.close()
+                    print("Done DB")
                     os.remove(os.path.join(UPLOADS_PATH + '/', file_name))
                     flash('Image removed successfully.', 'success')
                     return(redirect(url_for('gallery_manager')))
@@ -323,7 +325,7 @@ def officer_manager():
             try:
                 id = remove.id.data
                 conn = get_db_connection()
-                conn.execute('DELETE FROM officers WHERE id = ?', (id))
+                conn.execute('DELETE FROM officers WHERE id = ?', (id,))
                 conn.commit()
                 officers = conn.execute("SELECT * FROM officers").fetchall()
                 conn.close()
