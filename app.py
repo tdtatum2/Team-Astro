@@ -43,7 +43,7 @@ class AddEvent(Form):
     event = StringField('Event Name', [validators.Length(min=1, max=30)])
     location = StringField('Event Location', [validators.Length(min=1, max=30)])
     date = DateField('Event Date')
-    time = TimeField('Event Time', format='%H:%M:%S')
+    time = TimeField('Event Time', format='%H:%M')
     description = StringField('Event Description', [validators.Length(min=0, max=75)])
     weather = SelectField('Event Weather', choices=[('question-circle', 'TBD'), ('sun', 'Clear Day'), ('stars', 'Clear Night'), ('cloud-moon', 'Cloudy Night'), ('cloud-sun', 'Cloudy Day'), ('cloud-rain', 'Rainy'), ('wind', 'Windy'), ('cloud-snow', 'Snowy'), ('x-circle', 'Canceled')])
     add_event = SubmitField()
