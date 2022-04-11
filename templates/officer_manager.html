@@ -28,7 +28,7 @@ FHSU Astronomy Club | Officer Manager
                     <!-- Form with each value as default -->
                     <!-- Submit Button and Delete Button -->
                     {% for officer in officers %}
-                        <form method="post">
+                        <form method="post" id="officer-{{officer[0]}}">
                             {{ render_field2(edit.id, class_="form-control", value=officer[0]) }}
                             <tr class="mt-2">
                                 <td>

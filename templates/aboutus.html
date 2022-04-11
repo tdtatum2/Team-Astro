@@ -1,0 +1,150 @@
+<!-- Includes Base Template -->
+{% extends 'base.html' %}
+
+<!-- Title -->
+{% block title %}
+FHSU Astronomy Club | About Us
+{% endblock %}
+
+
+<!-- Main Content -->
+{% block content %}
+<div class="container-fluid">
+    <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center text-white">
+<body>
+<h2>About Us</h2>
+<br>
+<br>
+<div class="row">
+    <div class="col">
+        <h4>
+            The Department of Physics is located on second floor of Tomanek Hall in Room 255. 
+            The department office is open every weekday, excluding state holidays, from 8:00 a.m. - 4:30 p.m.
+            Feel free to call the department during normal business hours toll free at 1-800-628-FHSU or direct 
+            at 785-628-4271. If you wish to reach a faculty or staff member directly, feel free to visit 
+            the Faculty and Staff page for contact information.
+        </h4>
+    </div>
+    <div class="col">
+        <img src="{{ url_for('static', filename='imgs/class.jpg') }}" class="class" >
+        <h5>Eclipse Viewing [2017]</h5>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<h2>Staff/Members</h2> 
+
+<div class="row mb-5">
+    <div class="col">
+        <img src="{{ url_for('static', filename='imgs/jackm1.jpg') }}" style="width:300px; height:400px;">
+            <p>Dr. Jack Maseberg- Club Advisor</p>
+    </div>
+    <div class="col">     
+        <img src="HMPG Gallery/Person.jpg" style="width:300px; height:400px;">
+        <p>Caption Text</p>
+    </div>
+</div>
+{% from "_formhelpers.html" import render_field %}
+{% from "_formhelpers2.html" import render_field2 %}
+<div class="container-fluid border border-warning rounded-3">
+    <form method="post">
+        <h2 class="text-white">Contact Us</h2>
+        <br>
+        <h7 class="text-white">Complete the following form and we'll make every attempt to get back to you within two business days.</h7>
+        <br>
+        <div class="row mt-2 mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.firstname, class_="form-control", placeholder="First Name") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.lastname, class_="form-control", placeholder="Last Name") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.email, class_="form-control", placeholder="Email Address") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.phone, class_="form-control", placeholder="Phone Number") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.address, class_="form-control", placeholder="Street Address") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.city, class_="form-control", placeholder="City") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.state, class_="form-control") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.zipcode, class_="form-control", placeholder="Zip Code") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field(contact.contact_method, class_="form-control contact-method") }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field(contact.status, class_="form-control") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field(contact.interest, class_="form-control") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.message, class_="form-control", placeholder="Message")}}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    {{ render_field2(contact.submit, class_="form-control btn btn-lg btn-warning")}}
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

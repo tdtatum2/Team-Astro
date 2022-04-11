@@ -1,9 +1,11 @@
 from datetime import datetime
+from random import choices
+from tkinter.tix import Select
 from flask import Flask, render_template, session, request, flash, redirect, url_for
 import sqlite3
 import os
 from os.path import join, dirname, abspath
-from wtforms import StringField, validators, PasswordField, Form, SubmitField, HiddenField, SelectField, TimeField, DateField
+from wtforms import StringField, validators, PasswordField, Form, SubmitField, HiddenField, SelectField, TimeField, DateField, EmailField, TextAreaField, IntegerField, RadioField
 import bcrypt
 from werkzeug.utils import secure_filename
 
@@ -402,5 +404,48 @@ def logout():
     session.clear()
     flash('You have been logged out!', 'success')
     return redirect(url_for('login'))
+
+class ContactForm(Form):
+    firstname = StringField('First Name', [validators.Length(min=1, max=30)])
+    lastname = StringField('Last Name', [validators.Length(min=1, max=30)])
+    email = EmailField('Email Address')
+    phone = IntegerField('Telephone Number')
+    address = StringField('Street Address', [validators.Length(min=1, max=50)])
+    city = StringField('City', [validators.Length(min=1, max=30)])
+    state = SelectField('State', choices=["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Minor Outlying Islands", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "U.S. Virgin Islands", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"])
+    zipcode = IntegerField('Zip Code')
+    contact_method = RadioField('How should we contact you?', choices=["Mail", "Phone", "Email"] )
+    status = SelectField('I am', choices=["A Prospective Student", "A Current Student", "An Alumna/Alumnus"])
+    interest = SelectField('I am interested in', choices=["BA in Physics", "BS in Physics", "3+2 Program", "2+2 Program",
+    "BS in Physical Science",
+    "BS in Physical Science and Teacher Education",
+    "Minor in Physics",
+    "Certificate Program in Physics",
+    "Other" ])
+    message = TextAreaField('Message')
+    submit = SubmitField()
+
+@app.route('/aboutus')
+def aboutus():
+    contact = ContactForm(request.form)
+    return render_template('aboutus.html', contact = contact)
+
+    
+@app.route('/events')
+def events():
+    today = datetime.today()
+    today = today.strftime("%B %d, %Y")
+    conn = get_db_connection()
+    events = conn.execute("SELECT * FROM events").fetchall()
+    conn.close()
+    return render_template('events.html', today=today, events=events)
+
+    
+@app.route('/gallery')
+def gallery():
+    conn = get_db_connection()
+    images = conn.execute("SELECT * FROM images").fetchall()
+    conn.close()
+    return render_template('gallery.html', images=images)
 
 app.run(debug=True)
