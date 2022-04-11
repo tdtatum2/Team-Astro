@@ -433,12 +433,13 @@ def aboutus():
     
 @app.route('/events')
 def events():
-    today = datetime.today()
-    today = today.strftime("%B %d, %Y")
+    date = datetime.today()
+    today = date.strftime("%B %d, %Y")
+    check = date.strftime("%Y-%m-%d")
     conn = get_db_connection()
-    events = conn.execute("SELECT * FROM events").fetchall()
+    events = conn.execute("SELECT * FROM events ORDER BY date").fetchall()
     conn.close()
-    return render_template('events.html', today=today, events=events)
+    return render_template('events.html', today=today, check=check, events=events)
 
     
 @app.route('/gallery')
