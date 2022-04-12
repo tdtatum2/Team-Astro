@@ -26,3 +26,13 @@ nav a, #navbarContent a, .tiger-gold {
     margin-top: 5em;
 }
 
+.class {
+    width: 75%;
+    height: auto;
+}
+
+.contact-method {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+}

@@ -1,0 +1,37 @@
+<!-- Include Base Template -->
+{% extends 'base.html' %}
+
+<!-- Title Block -->
+{% block title %}
+FHSU Astronomy Club | Events
+{% endblock %}
+
+<!-- Main Content -->
+{% block content %}
+<body>
+    <div class="container-fluid">
+        <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center text-white mb-5">
+            <h2>Astronomy Club Picture Gallery</h2> 
+            <!-- <p class="tiger-gold">Click on the images below to get more information.</p> -->
+
+            <div class="row row-cols-md-3 row-cols-sm-1 mt-4">
+                
+                    {% for image in images %}
+                    <div class="col mb-5">
+                        <div class="card bg-dark border-warning h-100">
+                            <img src="{{image[2]}}" class="card-img-top" alt="{{image[4]}}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{image[3]}}</h5>
+                                <p>{{image[4]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}
