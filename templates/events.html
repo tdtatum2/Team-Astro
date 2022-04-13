@@ -82,13 +82,12 @@ FHSU Astronomy Club | Events
                         event_name = td.textContent || td.innerText;
                         if (event_name.toUpperCase().indexOf(event) > -1) {
                             tr[i].style.display = "";
-                            // tr[i].classList.add("table-highlight");
                         } else {
                             tr[i].style.display = "none";
                         }
                     }
                 }
-            }
+                $(window).scrollTop($('#event_table').offset().top)            }
             });
             calendar.render();
             var reset = document.getElementById("reset_table");
