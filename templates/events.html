@@ -33,7 +33,7 @@ FHSU Astronomy Club | Events
                 </thead>
                 <tbody>
                     {% for event in events %}
-                    {% if event[3] > check %}
+                    {% if event[3] >= check %}
                     <tr>
                         <td>{{ event [1] }}</td>
                         <td>{{ event [2] }}</td>

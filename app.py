@@ -449,7 +449,7 @@ def events():
     event_array = []
     keys = ['title', 'start']
     for event in events:
-        if (event[3] > check):
+        if (event[3] >= check):
             event_array.append(dict(zip(keys,(event[1], event[3]))))
         else:
             conn = get_db_connection()
