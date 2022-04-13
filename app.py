@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time, date
 from random import choices
 from tkinter.tix import Select
 from flask import Flask, render_template, session, request, flash, redirect, url_for
@@ -24,7 +24,15 @@ def get_db_connection():
 @app.template_filter()
 def format_time(value):
     new_time = datetime.strptime(value, '%H:%M:%S').time()
+    new_time = time.strftime(new_time, '%I:%M %p')
     return new_time
+
+@app.template_filter()
+def format_date(value):
+    new_date = datetime.strptime(value, '%Y-%m-%d').date()
+    new_date = date.strftime(new_date, "%B %d, %Y")
+    return new_date
+
 
 @app.route("/")
 def index():

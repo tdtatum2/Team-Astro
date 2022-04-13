@@ -67,7 +67,6 @@ border-color: #000;
     background-image: none;
     background-color: #FDB913;
 }
-
 /* .table-highlight {
     animation-name: table-highlight;
     animation-duration: 5s;
@@ -85,4 +84,10 @@ border-color: #000;
         --bs-table-bg: #2C3034;
         --bs-table-striped-bg: #212529;
     }
+} */
+
+/* .card-img-top:hover {
+    transform: scale(150%);
+    z-index: 99;
+    overflow: hidden;
 } */

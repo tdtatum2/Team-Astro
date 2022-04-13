@@ -38,8 +38,8 @@ FHSU Astronomy Club | Events
                         <td>{{ event [1] }}</td>
                         <td>{{ event [2] }}</td>
                         <td>{{ event [5] }}</td>
-                        <td>{{ event [3] }}</td>
-                        <td>{{ event [4] }}</td>
+                        <td>{{ event [3] | format_date }}</td>
+                        <td>{{ event [4] | format_time }}</td>
                         <td><i class="bi bi-{{ event[6] }}"></i></td>
                     </tr>
                     {% endif %}
@@ -47,7 +47,7 @@ FHSU Astronomy Club | Events
                 </tbody>
             </table>
         </div>
-        <button class="btn btn-lg btn-warning" id="reset_table">View All Events</button>
+        <button class="btn btn-lg btn-warning" id="reset_table" style="display: none;">View All Events</button>
     </div>
 </div>
 
@@ -75,6 +75,7 @@ FHSU Astronomy Club | Events
             eventClick: function(info) {
                 var event = info.event.title.toUpperCase();
                 var table = document.getElementById("event_table");
+                var reset = document.getElementById("reset_table");
                 var tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
                     td = tr[i].getElementsByTagName("td")[0];
@@ -87,6 +88,7 @@ FHSU Astronomy Club | Events
                         }
                     }
                 }
+                reset.style.display = "";
                 $(window).scrollTop($('#event_table').offset().top)            }
             });
             calendar.render();
@@ -99,6 +101,7 @@ FHSU Astronomy Club | Events
                     if (td) {
                         tr[i].style.display = "";
                     }
+                    reset.style.display = "none";
                 }
             })
         });   
