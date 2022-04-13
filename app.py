@@ -69,7 +69,14 @@ def event_manager():
     add_event = AddEvent(request.form)
     edit_event = EditEvent(request.form)
     remove_event = RemoveEvent(request.form)
+    date = datetime.today()
+    check = date.strftime("%Y-%m-%d")
     conn = get_db_connection()
+    events = conn.execute("SELECT * FROM events").fetchall()
+    for event in events:
+        if (event[3] < check):
+            conn.execute("DELETE FROM events WHERE id = ?", (event[0],))
+            conn.commit()
     events = conn.execute("SELECT * FROM events").fetchall()
     conn.close()
     try:
@@ -439,7 +446,17 @@ def events():
     conn = get_db_connection()
     events = conn.execute("SELECT * FROM events ORDER BY date").fetchall()
     conn.close()
-    return render_template('events.html', today=today, check=check, events=events)
+    event_array = []
+    keys = ['title', 'start']
+    for event in events:
+        if (event[3] > check):
+            event_array.append(dict(zip(keys,(event[1], event[3]))))
+        else:
+            conn = get_db_connection()
+            conn.execute("DELETE FROM events WHERE id = ?", (event[0],))
+            conn.commit()
+            conn.close()
+    return render_template('events.html', today=today, check=check, events=events, event_array=event_array)
 
     
 @app.route('/gallery')
