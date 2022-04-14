@@ -1,7 +1,7 @@
 from datetime import datetime
 from random import choices
-from tkinter.tix import Select
 from flask import Flask, render_template, session, request, flash, redirect, url_for
+from flask_mail import Mail, Message
 import sqlite3
 import os
 from os.path import join, dirname, abspath
@@ -9,12 +9,22 @@ from wtforms import StringField, validators, PasswordField, Form, SubmitField, H
 import bcrypt
 from werkzeug.utils import secure_filename
 
+mail = Mail()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Sg4&gLK**23S'
 UPLOADS_PATH = join(dirname(abspath(__file__)), 'static/uploads/')
 UPLOAD_FOLDER = 'app/static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_PATH'] = 157286400
+app.config.update(dict(
+    MAIL_SERVER = 'smtp.googlemail.com',
+    MAIL_PORT = 465,
+    MAIL_USE_TLS = False,
+    MAIL_USE_SSL = True,
+    MAIL_USERNAME = 'fhsu.astronomy.inquiries',
+    MAIL_PASSWORD = 'wtapiefwsmsqvzrk',
+))
+mail.init_app(app)
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -213,12 +223,10 @@ def gallery_manager():
                 id = remove_image.id.data
                 file_name = remove_image.filename.data
                 try:
-                    print(id)
                     conn = get_db_connection()
                     conn.execute('DELETE FROM images WHERE id = ?', (id,))
                     conn.commit()
                     conn.close()
-                    print("Done DB")
                     os.remove(os.path.join(UPLOADS_PATH + '/', file_name))
                     flash('Image removed successfully.', 'success')
                     return(redirect(url_for('gallery_manager')))
@@ -417,8 +425,8 @@ class ContactForm(Form):
     lastname = StringField('Last Name', [validators.Length(min=1, max=30)])
     email = EmailField('Email Address')
     phone = IntegerField('Telephone Number')
-    address = StringField('Street Address', [validators.Length(min=1, max=50)])
-    city = StringField('City', [validators.Length(min=1, max=30)])
+    address = StringField('Street Address')
+    city = StringField('City')
     state = SelectField('State', choices=["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Minor Outlying Islands", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "U.S. Virgin Islands", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"])
     zipcode = IntegerField('Zip Code')
     contact_method = RadioField('How should we contact you?', choices=["Mail", "Phone", "Email"] )
@@ -432,10 +440,34 @@ class ContactForm(Form):
     message = TextAreaField('Message')
     submit = SubmitField()
 
-@app.route('/aboutus')
+@app.route('/aboutus', methods=['GET', 'POST'])
 def aboutus():
     contact = ContactForm(request.form)
-    return render_template('aboutus.html', contact = contact)
+    if request.method == 'POST' and contact.validate():
+        try:
+            msg = Message('FHSU Astronomy Club Inquiry', sender='fhsu.astronomy.inquiries@gmail.com', recipients=['fhsu.astronomy.inquiries@gmail.com'])
+            msg.body = """
+            First Name: %s
+            Last Name: %s
+            Email Address: %s
+            Phone Number: %s
+            Street Address: %s
+            City: %s
+            State: %s
+            Zip Code: %s
+            Preferred Contact Method: %s
+            Student Status: %s
+            Interest: %s
+            Message: %s
+            """ % (contact.firstname.data, contact.lastname.data, contact.email.data, contact.phone.data, contact.address.data, contact.city.data,
+            contact.state.data, contact.zipcode.data, contact.contact_method.data, contact.status.data, contact.interest.data, contact.message.data)
+            mail.send(msg)
+            flash('Message submitted! We will get back to you shortly.', 'success')
+            return redirect(url_for('aboutus'))
+        except:
+            flash('Message failed to send. Please try again.', 'danger')
+            return render_template('aboutus.html', contact=contact)
+    return render_template('aboutus.html', contact=contact)
 
     
 @app.route('/events')
