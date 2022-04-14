@@ -343,7 +343,7 @@ def create_app():
                     officers = conn.execute("SELECT * FROM officers").fetchall()
                     conn.close()
                     flash('Officer successfully edited!', 'success')
-                    return render_template('officer_manager.html', officers=officers, add=add, edit=edit, remove=remove)
+                    return redirect(url_for('officer_manager'))
                 except:
                     flash('Officer edit failed. Please try again.', 'danger')
                     return render_template('officer_manager.html', officers=officers, add=add, edit=edit, remove=remove)
