@@ -506,4 +506,4 @@ def gallery():
     conn.close()
     return render_template('gallery.html', images=images)
 
-app.run(threaded=True, port = int(os.environ.get('PORT', 5000)))
+app.run(threaded=True)
