@@ -506,7 +506,9 @@ def create_app():
         images = conn.execute("SELECT * FROM images").fetchall()
         conn.close()
         return render_template('gallery.html', images=images)
+    
 
+    return app
 app = create_app()
 
 app.run()
