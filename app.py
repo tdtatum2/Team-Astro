@@ -122,7 +122,7 @@ def create_app():
                         events = conn.execute("SELECT * FROM events").fetchall()
                         conn.close()
                         flash('Event successfully added!', 'success')
-                        return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
+                        return redirect(url_for('event_manager'))
                     except:
                         flash('Event add failed. Please try again.', 'danger')
                         return render_template('event_manager.html', events=events, add_event=add_event, edit_event=edit_event, remove_event=remove_event)
@@ -328,7 +328,7 @@ def create_app():
                     officers = conn.execute("SELECT * FROM officers").fetchall()
                     conn.close()
                     flash('Officer successfully added!', 'success')
-                    return render_template('officer_manager.html', officers=officers, add=add, edit=edit, remove=remove)
+                    return redirect(url_for('officer_manager'))
                 except:
                     flash('Officer add failed. Please try again.', 'danger')
                     return render_template('officer_manager.html', officers=officers, add=add, edit=edit, remove=remove)
