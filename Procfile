@@ -1,1 +1,1 @@
-web: gunicorn app:app $PORT
+web: gunicorn app:app 5000
