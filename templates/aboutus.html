@@ -14,7 +14,7 @@ FHSU Astronomy Club | About Us
 
         <h2 class="border border-warning rounded-3 p-3 mb-5">About Us</h2>
         <div class="d-flex flex-column flex-lg-row mt-2 mb-5 justify-content-center align-items-center">
-            <h4>
+            <h4 class="mb-4">
                 The Department of Physics is located on second floor of Tomanek Hall in Room 255. 
                 The department office is open every weekday, excluding state holidays, from 8:00 a.m. - 4:30 p.m.
                 Feel free to call the department during normal business hours toll free at 1-800-628-FHSU or direct 
@@ -46,52 +46,36 @@ FHSU Astronomy Club | About Us
             <br>
             <h7 class="text-white">Complete the following form and we'll make every attempt to get back to you within two business days.</h7>
             <br>
-            <div class="row mt-2 mb-4">
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.firstname, class_="form-control", placeholder="First Name") }}
-                    </div>
+            <div class="d-flex flex-column flex-lg-row mt-2">
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.firstname, class_="form-control", placeholder="First Name") }}
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.lastname, class_="form-control", placeholder="Last Name") }}
-                    </div>
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.lastname, class_="form-control", placeholder="Last Name") }}
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.email, class_="form-control", placeholder="Email Address") }}
-                    </div>
+            <div class="d-flex flex-column flex-lg-row">
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.email, class_="form-control", placeholder="Email Address") }}
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.phone, class_="form-control", placeholder="Phone Number") }}
-                    </div>
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.phone, class_="form-control", placeholder="Phone Number") }}
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.address, class_="form-control", placeholder="Street Address") }}
-                    </div>
+            <div class="d-flex flex-column flex-lg-row">
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.address, class_="form-control", placeholder="Street Address") }}
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.city, class_="form-control", placeholder="City") }}
-                    </div>
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.city, class_="form-control", placeholder="City") }}
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.state, class_="form-control") }}
-                    </div>
+            <div class="d-flex flex-column flex-lg-row">
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.state, class_="form-control") }}
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        {{ render_field2(contact.zipcode, class_="form-control", placeholder="Zip Code") }}
-                    </div>
+                <div class="form-group mb-2 w-100 mx-lg-2">
+                    {{ render_field2(contact.zipcode, class_="form-control", placeholder="Zip Code") }}
                 </div>
             </div>
             <div class="row mb-4">
