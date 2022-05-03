@@ -67,27 +67,15 @@ border-color: #000;
     background-image: none;
     background-color: #FDB913;
 }
-/* .table-highlight {
-    animation-name: table-highlight;
-    animation-duration: 5s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
+
+.flex-even {
+    flex: 1;
 }
 
-@keyframes table-highlight {
-    0% {
-        --bs-table-bg: #212529;
-        --bs-table-striped-bg: #2C3034;
-    }
-    100% {
-        --bs-table-bg: #2C3034;
-        --bs-table-striped-bg: #212529;
-    }
-} */
+.card-body a {
+    transition: all 0.3s ease;
+}
 
-/* .card-img-top:hover {
-    transform: scale(150%);
-    z-index: 99;
-    overflow: hidden;
-} */
+.card-body a:hover {
+    color: #FFF;
+}

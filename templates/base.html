@@ -33,42 +33,50 @@
             <div class="container-fluid">
                 <a href="{{ url_for('index') }}" class="navbar-brand text-gold">
                     <img src="{{ url_for('static', filename='imgs/moonlogo.gif') }}" alt="Spinning Moon" class="d-inline-block me-2 logo align-middle">
-                    <span class="tiger-gold">FHSU Astronomy Club</span>
+                    <span class="tiger-gold d-none d-lg-inline">FHSU Astronomy Club</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle Navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item me-5">
+                <div class="collapse navbar-collapse justify-content-center flex-column flex-lg-row" id="navbarContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 text-center flex-grow-1">
+                        <li class="nav-item mt-2 me-lg-5">
+                            <span class="tiger-gold d-sm-block d-md-none">FHSU Astronomy Club<hr></span>
+                            
+                        </li>
+                        <li class="nav-item me-lg-5">
                             <a href="{{ url_for('index') }}" class="nav-link">Home</a>
                         </li>
-                        <li class="nav-item me-5">
+                        <li class="nav-item me-lg-5">
                             <a href="{{ url_for('events') }}" class="nav-link">Events</a>
                         </li>
-                        <li class="nav-item me-5">
+                        <li class="nav-item me-lg-5">
                             <a href="{{ url_for('gallery') }}" class="nav-link">Gallery</a>
                         </li>
-                        <li class="nav-item me-5">
+                        <li class="nav-item me-lg-5">
                             <a href="https://tigerlink.fhsu.edu/organization/astronomyclub" target="_blank" class="nav-link">TigerLink</a>
                         </li>
-                        <li class="nav-item me-5">
+                        <li class="nav-item me-lg-5">
                             <a href="{{ url_for('aboutus') }}" class="nav-link">About Us</a>
                         </li>
                     </ul>
                     <!-- Display Admin Panel Link and Logout Button if Logged In -->
                     {% if session['loggedIn'] %}
+                    <div class="align-self-center align-self-lg-end flex-grow">
                         <a href="{{ url_for('admin') }}" class="navbar-brand">
                             <button type="button" class="btn btn-outline-warning">Admin Panel</button>
                         </a>
                         <a href="{{ url_for('logout') }}" class="navbar-brand">
                             <button type="button" class="btn btn-outline-danger">Logout</button>
                         </a>
+                    </div>
                     <!-- Otherwise show Log In Button -->
                     {% else %}
+                    <div class="nav-item me-lg-5 align-self-center align-self-lg-end flex-grow">
                         <a href="{{ url_for('login') }}" class="navbar-brand">
                             <button type="button" class="btn btn-outline-warning">Admin Login</button>
                         </a>
+                    </div>
                     {% endif %}
                 </div>
             </div>
