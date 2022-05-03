@@ -8,120 +8,115 @@ FHSU Astronomy Club | Home
 
 <!-- Main Content -->
 {% block content %}
-	<div class="container-fluid">
-    <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center text-white mb-5">
-        <div class="slideshow-container">
-        
+<div class="container-fluid">
+  <div class="p-5 bg-dark bg-gradient border border-warning rounded-3 text-center text-white mb-5">
+      <div class="slideshow-container mb-3">
+      
         <div class="mySlides fade">
-          <div class="numbertext">1 / 3</div>
+          <div class="numbertext">
+            1 / 3
+          </div>
           <img src="{{url_for('static', filename='imgs/space.jpg') }}" style="width:100%; height: fit-content;">
           <!-- <div class="text">Space</div> -->
         </div>
-        
+      
         <div class="mySlides fade">
-          <div class="numbertext">2 / 3</div>
+          <div class="numbertext">
+            2 / 3
+          </div>
           <img src="{{url_for('static', filename='imgs/space.jpg') }}" style="width:100%; height: fit-content;">
           <!-- <div class="text">Caption Two</div> -->
         </div>
-        
+      
         <div class="mySlides fade">
-          <div class="numbertext">3 / 3</div>
+          <div class="numbertext">
+            3 / 3
+          </div>
           <img src="{{url_for('static', filename='imgs/space.jpg') }}" style="width:100%; height:fit-content;">
           <!-- <div class="text">Caption Three</div> -->
         </div>
-        
-        </div>
-        <br>
-        
-        <div style="text-align:center">
-          <span class="dot"></span> 
-          <span class="dot"></span> 
-          <span class="dot"></span> 
-        </div>
-        
-        <script>
-        let slideIndex = 0;
-        showSlides();
-        
-        function showSlides() {
-          let i;
-          let slides = document.getElementsByClassName("mySlides");
-          let dots = document.getElementsByClassName("dot");
-          for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";  
-          }
-          slideIndex++;
-          if (slideIndex > slides.length) {slideIndex = 1}    
-          for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-          }
-          slides[slideIndex-1].style.display = "block";  
-          dots[slideIndex-1].className += " active";
-          setTimeout(showSlides, 10000); // Change image every 10 seconds
-        }
-        </script>
-    <br>
-    <br>
-    
-    <h3>Welcome to the Astronomy Club!</h3>
-    <p>The FHSU Astronomy Club exists to give both students and the public the opportunity to observe the night sky with telescopes located on the Tomanek Hall Observation Deck and in the Albertson Hall astronomy tower. 
-      Student members staff the Observation Deck and host public events so that community members may utilize the telescopes.</p>
-    <br>
-    <br>
-    <br>
-<div class="d-flex flex-column flex-lg-row mb-3">
-    <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <h4 class="card-title border border-warning text-white p-2 mb-4">
-          Our Events
-        </h4>
-        <div class="card-text">
-          Click below to check out our calendar and see what cool events we have coming up!
-        </div>
-        <a href="{{url_for('events')}}" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
       </div>
-    </div>
-    <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <h4 class="card-title border border-warning text-white p-2 mb-4">
-          TigerLink
-        </h4>
-        <div class="card-text">
-          Below is the link to our page on the tiger link website where all of our university based information is located!
-        </div>
-        <a href="https://tigerlink.fhsu.edu/organization/astronomyclub" target="_blank" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
-      </div>
-    </div>
-    <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <h4 class="card-title border border-warning text-white p-2 mb-4">
-          About Us
-        </h4>
-        <div class="card-text">
-          Learn more about our club and what we are all about!placeholder Learn more about our club and what we are all about!
-        </div>
-        <a href="{{url_for('aboutus')}}" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
-      </div>
-    </div>
-    <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <h4 class="card-title border border-warning text-white p-2 mb-4">
-          Gallery
-        </h4>
-        <div class="card-text">
-          Click the button below to view images taken by our very own club members!
-        </div>
-        <a href="{{url_for('gallery')}}" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
-      </div>
-    </div>
-</div>
 
+      <div class="mb-4">
+        <span class="dot"></span> 
+        <span class="dot"></span> 
+        <span class="dot"></span> 
+      </div>
+      
+      <div class="mb-4">
+        <h3>Welcome to the Astronomy Club!</h3>
+        <p>The FHSU Astronomy Club exists to give both students and the public the opportunity to observe the night sky with telescopes located on the Tomanek Hall Observation Deck and in the Albertson Hall astronomy tower. 
+          Student members staff the Observation Deck and host public events so that community members may utilize the telescopes.</p>
+      </div>
 
-
-</div>
+      <div class="d-flex flex-column flex-lg-row mb-3">
+          <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h4 class="card-title border border-warning text-white p-2 mb-4">
+                Our Events
+              </h4>
+              <div class="card-text">
+                Click below to check out our calendar and see what cool events we have coming up!
+              </div>
+              <a href="{{url_for('events')}}" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
+            </div>
+          </div>
+          <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h4 class="card-title border border-warning text-white p-2 mb-4">
+                TigerLink
+              </h4>
+              <div class="card-text">
+                Below is the link to our page on the tiger link website where all of our university based information is located!
+              </div>
+              <a href="https://tigerlink.fhsu.edu/organization/astronomyclub" target="_blank" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
+            </div>
+          </div>
+          <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h4 class="card-title border border-warning text-white p-2 mb-4">
+                About Us
+              </h4>
+              <div class="card-text">
+                Learn more about our club and what we are all about!placeholder Learn more about our club and what we are all about!
+              </div>
+              <a href="{{url_for('aboutus')}}" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
+            </div>
+          </div>
+          <div class="card bg-dark flex-even border border-warning rounded-3 mb-2 me-3">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h4 class="card-title border border-warning text-white p-2 mb-4">
+                Gallery
+              </h4>
+              <div class="card-text">
+                Click the button below to view images taken by our very own club members!
+              </div>
+              <a href="{{url_for('gallery')}}" class="btn border border-warning tiger-gold mt-4"><strong>Learn More!</strong></a>
+            </div>
+          </div>
+      </div>
+  </div>
 </div>
     
-</body>
-
-</html>
+<script>
+  let slideIndex = 0;
+  showSlides();
+  
+  function showSlides() {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 10000); // Change image every 10 seconds
+  }
+</script>
 {% endblock %}
