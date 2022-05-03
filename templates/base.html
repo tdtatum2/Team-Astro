@@ -38,9 +38,9 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle Navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <div class="d-flex justify-content-center flex-column flex-lg-row">
-                        <ul class="navbar-nav mb-2 mb-lg-0 text-center flex-grow-1">
+                <div class="collapse navbar-collapse flex-column flex-lg-row justify-content-center justify-content-lg-between" id="navbarContent">
+                    <!-- <div class="d-flex flex-column flex-lg-row w-100"> -->
+                        <ul class="navbar-nav mb-2 mb-lg-0 text-center">
                             <li class="nav-item mt-2 me-lg-5">
                                 <span class="tiger-gold d-sm-block d-md-none">FHSU Astronomy Club<hr></span>
                                 
@@ -63,7 +63,7 @@
                         </ul>
                         <!-- Display Admin Panel Link and Logout Button if Logged In -->
                         {% if session['loggedIn'] %}
-                        <div class="align-self-center align-self-lg-end flex-grow">
+                        <div class="nav-item me-lg-5 text-center">
                             <a href="{{ url_for('admin') }}" class="navbar-brand">
                                 <button type="button" class="btn btn-outline-warning">Admin Panel</button>
                             </a>
@@ -73,13 +73,13 @@
                         </div>
                         <!-- Otherwise show Log In Button -->
                         {% else %}
-                        <div class="nav-item me-lg-5 align-self-center align-self-lg-end flex-grow">
+                        <div class="nav-item me-lg-5 text-center">
                             <a href="{{ url_for('login') }}" class="navbar-brand">
                                 <button type="button" class="btn btn-outline-warning">Admin Login</button>
                             </a>
                         </div>
                         {% endif %}
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </nav>
