@@ -40,16 +40,20 @@ nav a, #navbarContent a, .tiger-gold {
 .form-control:active, .form-control:focus {
 outline: none;
 -webkit-box-shadow: none;
-box-shadow: none; }
+box-shadow: none; 
+}
 
 #calendar {
 max-width: 900px;
-margin: 0 auto; }
+margin: 0 auto; 
+}
+
 #calendar .fc-view-container {
     padding: 30px;
     background-color: #63656a;
     -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2); }
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2);
+}
 
 .fc-right .fc-prev-button, .fc-right .fc-next-button, .fc-right .fc-prev-button:active, .fc-right .fc-prev-button:visited {
 background-image: none;
