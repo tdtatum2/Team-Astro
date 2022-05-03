@@ -72,6 +72,10 @@ border-color: #000;
     flex: 1;
 }
 
+.flex-login {
+    width: 50%;
+}
+
 .card {
     width: 400px;
 }
@@ -159,5 +163,9 @@ border-color: #000;
     .card-img-top {
         width: 300px;
         height: 190px;
+    }
+
+    .flex-login {
+        width: 100%;
     }
 }

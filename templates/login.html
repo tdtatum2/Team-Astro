@@ -15,21 +15,19 @@
         </div>
         {% from "_formhelpers.html" import render_field %}
         <form method="POST">
-            <div class="row mb-4">
-                <div class="col-4 offset-4">
+            <div class="d-flex flex-column justify-content-center align-items-center mb-4">
+                <div class="flex-login mb-4">
                     <div class="form-group">
                         {{ render_field(form.username, class_="form-control") }}
                     </div>
                 </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-4 offset-4">
+                <div class="flex-login mb-4">
                     <div class="form-group">
                         {{ render_field(form.password, class_="form-control") }}
                     </div>
                 </div>
             </div>
-            <input class="btn btn-lg btn-warning mt-2" type="submit" value="Submit"></button>
+            <input class="btn btn-lg btn-warning mt-2 flex-login" type="submit" value="Submit"></button>
         </form>
     </div>
 </div>
