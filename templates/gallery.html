@@ -14,10 +14,10 @@ FHSU Astronomy Club | Events
             <h2 class="border border-warning rounded-3 p-3 mb-5">Astronomy Club Picture Gallery</h2> 
             <!-- <p class="tiger-gold">Click on the images below to get more information.</p> -->
 
-            <div class="row row-cols-md-3 row-cols-sm-1 mt-4">
+            <div class="d-flex flex-column flex-lg-row flex-wrap justify-content-center mt-4">
                 
                     {% for image in images %}
-                    <div class="col mb-5">
+                    <div class="flex-even m-lg-5 mb-5">
                         <div class="card bg-dark border-warning h-100">
                             <img src="{{image[2]}}" class="card-img-top" alt="{{image[4]}}">
                             {% if image[3] != None and image[4] != None %}

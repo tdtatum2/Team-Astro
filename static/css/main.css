@@ -79,3 +79,16 @@ border-color: #000;
 .card-body a:hover {
     color: #FFF;
 }
+
+.card-img-top {
+    width: 500px;
+    height: 250px;
+}
+
+
+@media screen and (max-width: 900px) {
+    .card-img-top {
+        width: 300px;
+        height: 150px;
+    }
+}
